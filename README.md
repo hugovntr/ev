@@ -53,7 +53,7 @@ Retrieve a single decrypted value. Useful for piping into other commands.
 
 ```bash
 # Example: Using the token in a curl request
-curl -H "Authorization: Bearer $(ev get API_KEY)" [https://api.example.com](https://api.example.com)
+curl -H "Authorization: Bearer $(ev get API_KEY)" https://api.example.com
 ```
 
 4. **Export All Variables**
@@ -66,9 +66,8 @@ eval $(ev export)
 ### Configuration Flags
 You can override the default paths using flags or by editing the source defaults.
 
--f, --vault-file: Path to the encrypted vault file.
-
--p, --password-file: Path to the file containing the vault password.
+- `-f`, `--vault-file`: Path to the encrypted vault file.
+- `-p`, `--password-file`: Path to the file containing the vault password.
 
 ## Security
 **ev** uses a robust security model:
