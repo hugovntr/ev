@@ -8,7 +8,7 @@ GO_FILES=$(shell find . -name '*.go')
 
 build: ## Build the binary for the local OS
 	@echo " > Building binary..."
-	go build -o "./$(BINARY_PATH)/$(BINARY_NAME)" main.go
+	go build -ldflags="-s -w" -o "./$(BINARY_PATH)/$(BINARY_NAME)" main.go
 	@echo " > Done! Binary created at ./$(BINARY_PATH)/$(BINARY_NAME)"
 
 install: build
@@ -28,16 +28,16 @@ clean: ## Remove build artifacts and temp files
 
 # System specific compilation
 build-linux: ## Build for Linux (amd64)
-	GOOS=linux GOARCH=amd64 go build -o "./$(BINARY_PATH)/$(BINARY_NAME)-linux-amd64" main.go
+	GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o "./$(BINARY_PATH)/$(BINARY_NAME)-linux-amd64" main.go
 
 build-linux-arm: ## Build for Linux (arm64)
-	GOOS=linux GOARCH=arm64 go build -o "./$(BINARY_PATH)/$(BINARY_NAME)-linux-arm64" main.go
+	GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o "./$(BINARY_PATH)/$(BINARY_NAME)-linux-arm64" main.go
 
 build-mac: ## Build for macOS (amd64)
-	GOOS=darwin GOARCH=amd64 go build -o "./$(BINARY_PATH)/$(BINARY_NAME)-darwin-amd64" main.go
+	GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o "./$(BINARY_PATH)/$(BINARY_NAME)-darwin-amd64" main.go
 
 build-mac-arm: ## Build for macOS (arm64/Apple Silicon)
-	GOOS=darwin GOARCH=arm64 go build -o "./$(BINARY_PATH)/$(BINARY_NAME)-darwin-arm64" main.go
+	GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o "./$(BINARY_PATH)/$(BINARY_NAME)-darwin-arm64" main.go
 
 
 # Complete build
