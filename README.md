@@ -20,7 +20,7 @@ Requires Go 1.22+
 ```bash
 git clone https://github.com/hugovntr/ev.git
 cd ev
-go install
+make install
 ```
 
 ## Usage
