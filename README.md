@@ -1,4 +1,4 @@
-# EV (Environment Vault)
+# Environment Vault (ev)
 
 **ev** is a secure, lightweight CLI for managing environment variables. It works similarly to `ansible-vault` but is designed for speed, portability, and easy integration with shell scripts.
 
@@ -11,6 +11,23 @@ Built in Go, `ev` compiles to a single binary with no dependencies.
 - 📝 **Base64 Encoding**: Vault files are Git-friendly and copy-pasteable.
 - 🐚 **Shell Native**: First-class support for exporting variables to your shell.
 - 🚀 **Zero Dependencies**: Just a single binary.
+
+## Comparison: `ev` vs. `ansible-vault`
+
+While `ansible-vault` is a powerful general-purpose tool, `ev` is purpose-built for environment variable management in shell scripts and CI/CD pipelines.
+
+| Feature | ev 🚀 | ansible-vault 🐢 |
+| :--- | :--- | :--- |
+| **Startup Speed** | **~20ms** (Instant) | **~500ms+** (Python startup) |
+| **Dependencies** | **None** (Single Binary) | Python, Ansible, Pip modules |
+| **Shell Integration** | Native (`ev export`, `ev get`) | Difficult (requires parsing output) |
+| **File Format** | Base64 (Copy-paste friendly) | Raw Binary / Hex |
+| **Editing** | Auto-cleanup of temp files | Auto-cleanup of temp files |
+| **Encryption** | AES-256-GCM (Authenticated) | AES-256 (CBC/CTR) |
+
+**Why use ev?**
+- **For Scripts:** running `eval $(ev export)` is instant and loads your entire environment safely. Doing this with Ansible requires complex piping and is significantly slower.
+- **For CI/CD:** You don't need to install a heavy Python environment just to unlock secrets.
 
 ## Installation
 
