@@ -78,8 +78,6 @@ You can override the default paths using flags or by editing the source defaults
 
 ## License
 
-The MIT License is the standard for open-source Go projects. Create a file named `LICENSE`:
-
 ```text
 MIT License
 
