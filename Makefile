@@ -22,6 +22,7 @@ test: ## Run all unit and integration tests
 
 clean: ## Remove build artifacts and temp files
 	@echo " > Cleaning up..."
+	rm -rf ./dist
 	rm -rf ./$(BINARY_PATH)/
 	rm -rf coverage.out
 
@@ -43,6 +44,10 @@ build-mac-arm: ## Build for macOS (arm64/Apple Silicon)
 # Complete build
 build-all: clean build build-linux build-linux-arm build-mac build-mac-arm
 	@echo " > Done building for ALL targets"
+
+# Release
+release: clean ## Build artifacts for GH release (usage: make release v=X.X.X)
+	@./release.sh $(v)
 
 # Help
 help:

@@ -38,6 +38,7 @@ tags
 *.exe
 cobra.test
 bin
+dist
 
 # IDE
 .idea/
