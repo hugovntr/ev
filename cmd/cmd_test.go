@@ -34,14 +34,13 @@ func TestIntegrationFlow(t *testing.T) {
 	testPassword := "secure-test-password"
 
 	// Manually Create Credentials File
-	// We do this to bypass the interactive terminal prompt of 'ev create'
 	if err := os.WriteFile(testCreds, []byte(testPassword), 0600); err != nil {
 		t.Fatalf("Failed to write creds: %v", err)
 	}
 
-	// Manually Create Initial Vault (Mocking 'ev create' internals to avoid stdin prompt)
-	// We inject some test data directly
-	initialData := []byte("API_KEY: 12345\nDB_HOST: localhost\n")
+	// Manually Create Initial Vault
+	// We inject some test data: "API_KEY" (string) and "PORT" (int) to test type conversion
+	initialData := []byte("API_KEY: 12345\nPORT: 8080\n")
 	encryptedData, err := crypto.Encrypt(initialData, testPassword)
 	if err != nil {
 		t.Fatalf("Failed to encrypt setup data: %v", err)
@@ -51,24 +50,42 @@ func TestIntegrationFlow(t *testing.T) {
 	}
 
 	// TEST: 'ev get'
-	// We must pass the flags explicitly because the global var defaults might be ~/.config/...
-	// NOTE: Cobra flags persist, so we pass them in the args
 	output, err := executeCommand("get", "API_KEY", "-f", testVault, "-p", testCreds)
 	if err != nil {
 		t.Fatalf("ev get failed: %v", err)
 	}
+	// Check exact value (no weird characters or newlines)
 	if output != "12345" {
 		t.Errorf("Expected '12345', got '%s'", output)
 	}
 
-	// TEST: 'ev export'
-	output, err = executeCommand("export", "-f", testVault, "-p", testCreds)
+	// TEST: 'ev env' (Default / Bash)
+	output, err = executeCommand("env", "-f", testVault, "-p", testCreds)
 	if err != nil {
-		t.Fatalf("ev export failed: %v", err)
+		t.Fatalf("ev env (default) failed: %v", err)
+	}
+	expectedBash := `export API_KEY="12345"`
+	if !strings.Contains(output, expectedBash) {
+		t.Errorf("Bash env output missing API_KEY.\nExpected: %s\nGot:\n%s", expectedBash, output)
 	}
 
-	expectedExport := `export API_KEY="12345"`
-	if !strings.Contains(output, expectedExport) {
-		t.Errorf("Export output missing API_KEY. Got:\n%s", output)
+	// TEST: 'ev env fish'
+	output, err = executeCommand("env", "fish", "-f", testVault, "-p", testCreds)
+	if err != nil {
+		t.Fatalf("ev env fish failed: %v", err)
+	}
+	expectedFish := `set -gx API_KEY "12345"`
+	if !strings.Contains(output, expectedFish) {
+		t.Errorf("Fish env output incorrect.\nExpected: %s\nGot:\n%s", expectedFish, output)
+	}
+
+	// TEST: 'ev env pwsh'
+	output, err = executeCommand("env", "pwsh", "-f", testVault, "-p", testCreds)
+	if err != nil {
+		t.Fatalf("ev env pwsh failed: %v", err)
+	}
+	expectedPwsh := `$Env:API_KEY = "12345"`
+	if !strings.Contains(output, expectedPwsh) {
+		t.Errorf("PowerShell env output incorrect.\nExpected: %s\nGot:\n%s", expectedPwsh, output)
 	}
 }

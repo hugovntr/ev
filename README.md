@@ -73,11 +73,22 @@ Retrieve a single decrypted value. Useful for piping into other commands.
 curl -H "Authorization: Bearer $(ev get API_KEY)" https://api.example.com
 ```
 
-4. **Export All Variables**
-Load all vault variables into your current shell session.
+4. **Load Environment**
+Load all vault variables into your current shell.
 
+**Bash / Zsh**
 ```bash
-eval $(ev export)
+eval $(ev env)
+```
+
+**Fish**
+```fish
+ev env fish | source
+```
+
+**PowerShell**
+```powershell
+ev env pwsh | Invoke-Expression
 ```
 
 ### Configuration Flags
