@@ -9,7 +9,7 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:   "get",
+	Use:   "get [variable_name]",
 	Short: "Retrieve a specific value from the Environment Vault",
 	Args:  cobra.ExactArgs(1),
 	RunE:  runGet,
