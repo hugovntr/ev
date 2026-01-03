@@ -44,3 +44,5 @@ dist
 .idea/
 .vscode/
 .cursor/
+# Added by goreleaser init:
+dist/
