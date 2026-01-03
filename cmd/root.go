@@ -18,9 +18,12 @@ var (
 	passwordFile string
 )
 
+var version = "dev"
+
 var rootCmd = &cobra.Command{
-	Use:   "ev",
-	Short: "Environment Vault: Manage secure environment variables",
+	Use:     "ev",
+	Short:   "Environment Vault: Manage secure environment variables",
+	Version: version,
 }
 
 // Execute is the entry point for main.go
