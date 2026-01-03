@@ -20,13 +20,13 @@ While `ansible-vault` is a powerful general-purpose tool, `ev` is purpose-built 
 | :--- | :--- | :--- |
 | **Startup Speed** | **~20ms** (Instant) | **~500ms+** (Python startup) |
 | **Dependencies** | **None** (Single Binary) | Python, Ansible, Pip modules |
-| **Shell Integration** | Native (`ev export`, `ev get`) | Difficult (requires parsing output) |
+| **Shell Integration** | Native (`ev env`, `ev get`) | Difficult (requires parsing output) |
 | **File Format** | Base64 (Copy-paste friendly) | Raw Binary / Hex |
 | **Editing** | Auto-cleanup of temp files | Auto-cleanup of temp files |
 | **Encryption** | AES-256-GCM (Authenticated) | AES-256 (CBC/CTR) |
 
 **Why use ev?**
-- **For Scripts:** running `eval $(ev export)` is instant and loads your entire environment safely. Doing this with Ansible requires complex piping and is significantly slower.
+- **For Scripts:** running `eval $(ev env)` is instant and loads your entire environment safely. Doing this with Ansible requires complex piping and is significantly slower.
 - **For CI/CD:** You don't need to install a heavy Python environment just to unlock secrets.
 
 ## Installation
