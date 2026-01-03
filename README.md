@@ -31,6 +31,33 @@ While `ansible-vault` is a powerful general-purpose tool, `ev` is purpose-built 
 
 ## Installation
 
+### Homebrew (macOS & Linux)
+The recommended way to install. This use a custom tap to keep `ev` up-to-date.
+
+```bash
+brew install hugovntr/tap/ev
+```
+
+To update later:
+```bash
+brew upgrade ev
+```
+
+### Go Install
+If you are a Go developer, you can install directly from the source:
+```bash
+go install github.com/hugovntr/ev@latest
+```
+
+### Manual Binary
+1. Download the latest binary for your OS/Arch from the [Release page](http://github.com/hugovntr/ev/releases)
+2. Decompress the archive
+3. Move it to your path:
+```bash
+tar -xzf ev_*.tar.gz
+sudo mv ev /usr/local/bin
+```
+
 ### From Source
 Requires Go 1.22+
 
@@ -38,6 +65,12 @@ Requires Go 1.22+
 git clone https://github.com/hugovntr/ev.git
 cd ev
 make install
+```
+
+## Verification
+Verify the installation by checking the version
+```bash
+ev --version
 ```
 
 ## Usage
